@@ -102,6 +102,8 @@ export const HeaderComponent: React.FC<{
 		}
 	}, [latestVersion]);
 
+	const [consoleShown, setConsoleShown] = React.useState(false);
+
 	return (
 		<section className="bncm-mgr-header">
 			<img
@@ -135,10 +137,12 @@ export const HeaderComponent: React.FC<{
 					</Button>
 					<Button
 						onClick={() => {
-							BetterNCM.app.showConsole();
+							BetterNCM.app.showConsole(!consoleShown);
+							setConsoleShown(!consoleShown);
 						}}
 					>
-						打开控制台
+						{consoleShown ? "隐藏" : "打开"}
+						控制台
 					</Button>
 
 					{
@@ -151,7 +155,7 @@ export const HeaderComponent: React.FC<{
 								>
 									重载网易云
 								</Button>
-								
+
 								<Button
 									onClick={async () => {
 										await disableSafeMode();
