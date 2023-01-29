@@ -172,3 +172,18 @@ body.mq-playing section.better-ncm-manager.ncmm-show {
     margin: 28px 0 0 30px;
 }
 
+@keyframes twinkling {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0.6;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.bncm-btn-twinkling{
+    animation: twinkling 1s infinite;
+}

@@ -21,6 +21,9 @@ export async function initPluginManager() {
 	) as HTMLAnchorElement;
 	betterNCMSettingsButton.href = "javascript:void(0)";
 	betterNCMSettingsButton.title = "BetterNCM";
+
+	if (localStorage.getItem(OPENED_WARNINGS) !== "true")
+		betterNCMSettingsButton.classList.add("bncm-btn-twinkling");
 	betterNCMSettingsButton.innerHTML = `<svg style='transform: scale(0.8);'><use xlink:href="orpheus://orpheus/style/res/svg/topbar.sp.svg#logo_white"></use></svg>`;
 	mainPageView.parentElement!!.insertBefore(
 		settingsView,
@@ -149,6 +152,7 @@ const PluginManager: React.FC = () => {
 						onRequestClose={() => {
 							localStorage.setItem(OPENED_WARNINGS, "true");
 							setShowStartupWarnings(false);
+							document.querySelector('.bncm-btn-twinkling')?.classList.remove("bncm-btn-twinkling");
 						}}
 					/>
 				) : (
