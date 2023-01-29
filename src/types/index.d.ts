@@ -33,6 +33,7 @@ declare global {
 
 		export namespace app {
 			export function version(): string;
+			export function reloadIgnoreCache(): void;
 		}
 	}
 	interface Window {

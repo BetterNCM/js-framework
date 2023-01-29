@@ -19,7 +19,7 @@ declare const loadingMask: HTMLDivElement;
  */
 function reload(): void {
 	if (!("loadingMask" in window)) {
-		document.location.reload();
+		betterncm_native.app.reloadIgnoreCache();
 		return;
 	}
 	const anim = loadingMask.animate([{ opacity: 0 }, { opacity: 1 }], {
@@ -30,7 +30,7 @@ function reload(): void {
 	anim.commitStyles();
 
 	anim.addEventListener("finish", (_) => {
-		document.location.reload();
+		betterncm_native.app.reloadIgnoreCache();
 	});
 }
 
