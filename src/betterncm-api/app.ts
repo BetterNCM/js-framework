@@ -111,8 +111,8 @@ export namespace app {
 	 * 打开网易云主进程的Console
 	 * @returns 是否成功
 	 */
-	export async function showConsole() {
-		const r = await betterncmFetch("/app/show_console");
+	export async function showConsole(show = true) {
+		const r = await betterncmFetch(`/app/show_console?${(!show) && "hide"}`);
 		return r.status === 200;
 	}
 
