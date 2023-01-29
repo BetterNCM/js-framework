@@ -285,19 +285,20 @@ async function loadPlugins() {
 
 async function onLoadError(e: Error) {
 	const ATTEMPTS_KEY = "cc.microblock.loader.reloadPluginAttempts";
-	const attempts = parseInt(localStorage.getItem(ATTEMPTS_KEY) || "0");
+	
+	const attempts = parseInt(await BetterNCM.app.readConfig(ATTEMPTS_KEY,"0"));
 	const pastError = localStorage.getItem(LOAD_ERROR_KEY) || "";
 	localStorage.setItem(
 		LOAD_ERROR_KEY,
 		`${pastError}第 ${attempts + 1} 次加载发生错误：\n${e.stack || e}\n\n`,
 	);
 	if (attempts < 2) {
-		localStorage.setItem(ATTEMPTS_KEY, String(attempts + 1));
+		await BetterNCM.app.writeConfig(ATTEMPTS_KEY,String(attempts + 1));
 	} else {
 		await enableSafeMode();
-		localStorage.removeItem(ATTEMPTS_KEY);
+		await BetterNCM.app.writeConfig(ATTEMPTS_KEY,"0");
 	}
-	document.location.reload();
+	betterncm_native.app.reloadIgnoreCache();
 }
 
 declare const loadingMask: HTMLDivElement;
@@ -310,7 +311,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 	styleEl.innerHTML = styleContent;
 	document.head.appendChild(styleEl);
 
-	if((await BetterNCM.app.readConfig(CPP_SIDE_INJECT_DISABLE_KEY,"false"))==="true"){
+	if((await BetterNCM.app.readConfig(CPP_SIDE_INJECT_DISABLE_KEY,"false"))==="false"){
 		localStorage.setItem(SAFE_MODE_KEY,"false");
 	}
 
