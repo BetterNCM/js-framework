@@ -34,6 +34,7 @@ declare global {
 		export namespace app {
 			export function version(): string;
 			export function reloadIgnoreCache(): void;
+			export function restart(): void;
 		}
 	}
 	interface Window {

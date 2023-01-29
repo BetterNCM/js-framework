@@ -201,14 +201,22 @@ const PluginManager: React.FC = () => {
 															className="plugin-uninstall-btn"
 															onClick={async (e) => {
 																e.stopPropagation();
+
+																const requireRestart = loadPlugin.manifest.require_restart || loadPlugin.manifest.native_plugin
+
 																const pluginFilePath =
 																	await BetterNCM.fs.readFileText(
 																		`${loadPlugin.pluginPath}/.plugin.path.meta`,
 																	);
 																if (pluginFilePath.length > 1) {
 																	await BetterNCM.fs.remove(pluginFilePath);
-																	await BetterNCM.app.reloadPlugins();
-																	BetterNCM.reload();
+
+																	if(requireRestart){
+																		betterncm_native.app.restart()
+																	}else{
+																		await BetterNCM.app.reloadPlugins();
+																		BetterNCM.reload();
+																	}
 																}
 															}}
 														>
