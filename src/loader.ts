@@ -310,6 +310,10 @@ window.addEventListener("DOMContentLoaded", async () => {
 	styleEl.innerHTML = styleContent;
 	document.head.appendChild(styleEl);
 
+	if((await BetterNCM.app.readConfig(CPP_SIDE_INJECT_DISABLE_KEY,"false"))==="true"){
+		localStorage.setItem(SAFE_MODE_KEY,"false");
+	}
+
 	try {
 		await Promise.race([
 			Promise.all([loadPlugins(), initPluginManager()]),
