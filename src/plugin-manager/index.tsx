@@ -92,7 +92,7 @@ export let onPluginLoaded = (_: typeof loadedPlugins) => { };
 
 const PluginManager: React.FC = () => {
 	const [selectedPlugin, setSelectedPlugin] = React.useState<NCMPlugin | null>(
-		null,
+		loadedPlugins["PluginMarket"],
 	);
 	const pluginConfigRef = React.useRef<HTMLDivElement | null>(null);
 	const [loadedPluginsList, setLoadedPlugins] = React.useState<string[]>([]);
