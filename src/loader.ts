@@ -313,6 +313,8 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 	if((await BetterNCM.app.readConfig(CPP_SIDE_INJECT_DISABLE_KEY,"false"))==="false"){
 		localStorage.setItem(SAFE_MODE_KEY,"false");
+	}else{
+		localStorage.setItem(SAFE_MODE_KEY,"true");
 	}
 
 	try {
