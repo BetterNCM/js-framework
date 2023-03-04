@@ -69,7 +69,7 @@ export const getLoadError = () => localStorage.getItem(LOAD_ERROR_KEY) || "";
 function sortPlugins(plugins: NCMPlugin[]) {
 	class Graph {
 		adjacencyList = {};
-		constructor() {}
+		constructor() { }
 		addVertex(vertex: string) {
 			if (!this.adjacencyList[vertex]) {
 				this.adjacencyList[vertex] = [];
@@ -135,7 +135,7 @@ async function loadPlugins() {
 	const debouncedReload = BetterNCM.utils.debounce(BetterNCM.reload, 1000);
 
 	// rome-ignore lint/suspicious/noExplicitAny: AsyncFunction 并不暴露成类，需要手动获取
-	const AsyncFunction = async function () {}.constructor as any;
+	const AsyncFunction = async function () { }.constructor as any;
 	const pageMap = {
 		"/pub/app.html": "Main",
 	};
@@ -183,8 +183,7 @@ async function loadPlugins() {
 					throw new PluginLoadError(
 						filePath,
 						plugin.loadError,
-						`插件脚本 ${filePath} 加载出错: ${
-							plugin.loadError.stack || plugin.loadError
+						`插件脚本 ${filePath} 加载出错: ${plugin.loadError.stack || plugin.loadError
 						}`,
 						{
 							cause: plugin.loadError,
@@ -271,8 +270,7 @@ async function loadPlugins() {
 				throw new PluginLoadError(
 					inject.filePath,
 					inject.loadError,
-					`插件脚本 ${inject.filePath} 加载出错: ${
-						inject.loadError.stack || inject.loadError
+					`插件脚本 ${inject.filePath} 加载出错: ${inject.loadError.stack || inject.loadError
 					}`,
 					{
 						cause: inject.loadError,
@@ -285,36 +283,52 @@ async function loadPlugins() {
 
 async function onLoadError(e: Error) {
 	const ATTEMPTS_KEY = "cc.microblock.loader.reloadPluginAttempts";
-	
-	const attempts = parseInt(await BetterNCM.app.readConfig(ATTEMPTS_KEY,"0"));
+
+	const attempts = parseInt(await BetterNCM.app.readConfig(ATTEMPTS_KEY, "0"));
 	const pastError = localStorage.getItem(LOAD_ERROR_KEY) || "";
 	localStorage.setItem(
 		LOAD_ERROR_KEY,
 		`${pastError}第 ${attempts + 1} 次加载发生错误：\n${e.stack || e}\n\n`,
 	);
 	if (attempts < 2) {
-		await BetterNCM.app.writeConfig(ATTEMPTS_KEY,String(attempts + 1));
+		await BetterNCM.app.writeConfig(ATTEMPTS_KEY, String(attempts + 1));
 	} else {
 		await enableSafeMode();
-		await BetterNCM.app.writeConfig(ATTEMPTS_KEY,"0");
+		await BetterNCM.app.writeConfig(ATTEMPTS_KEY, "0");
 	}
 	betterncm_native.app.reloadIgnoreCache();
 }
 
 declare const loadingMask: HTMLDivElement;
 window.addEventListener("DOMContentLoaded", async () => {
-	// 加载管理器样式表
-	const styleContent = await (
-		await betterncmFetch("/internal/framework.css")
-	).text();
-	const styleEl = document.createElement("style");
-	styleEl.innerHTML = styleContent;
-	document.head.appendChild(styleEl);
+	!(async () => {
+		// 加载管理器样式表
+		const styleContent = await (
+			await betterncmFetch("/internal/framework.css")
+		).text();
+		const styleEl = document.createElement("style");
+		styleEl.innerHTML = styleContent;
+		document.head.appendChild(styleEl);
+	})()
 
-	if((await BetterNCM.app.readConfig(CPP_SIDE_INJECT_DISABLE_KEY,"false"))==="false"){
-		localStorage.setItem(SAFE_MODE_KEY,"false");
-	}else{
-		localStorage.setItem(SAFE_MODE_KEY,"true");
+	setTimeout(() => {
+		if ("loadingMask" in window) {
+			const anim = loadingMask.animate(
+				[{ opacity: 1 }, { opacity: 0, display: "none" }],
+				{
+					duration: 300,
+					fill: "forwards",
+					easing: "cubic-bezier(0.42,0,0.58,1)",
+				},
+			);
+			anim.commitStyles();
+		}
+	}, 50)
+
+	if ((await BetterNCM.app.readConfig(CPP_SIDE_INJECT_DISABLE_KEY, "false")) === "false") {
+		localStorage.setItem(SAFE_MODE_KEY, "false");
+	} else {
+		localStorage.setItem(SAFE_MODE_KEY, "true");
 	}
 
 	try {
@@ -326,16 +340,6 @@ window.addEventListener("DOMContentLoaded", async () => {
 		onLoadError(e);
 		return;
 	}
-	if ("loadingMask" in window) {
-		const anim = loadingMask.animate(
-			[{ opacity: 1 }, { opacity: 0, display: "none" }],
-			{
-				duration: 300,
-				fill: "forwards",
-				easing: "cubic-bezier(0.42,0,0.58,1)",
-			},
-		);
-		anim.commitStyles();
-	}
+
 	onPluginLoaded(loadedPlugins); // 更新插件管理器那边的插件列表
 });
