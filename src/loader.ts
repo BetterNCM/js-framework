@@ -33,6 +33,7 @@ export async function disableSafeMode() {
  * 供用户和插件作者排查加载错误
  */
 export async function enableSafeMode() {
+	return;
 	await BetterNCM.app.writeConfig(CPP_SIDE_INJECT_DISABLE_KEY, "true");
 	localStorage.setItem(SAFE_MODE_KEY, "true");
 }
@@ -282,6 +283,8 @@ async function loadPlugins() {
 }
 
 async function onLoadError(e: Error) {
+	console.error("[BetterNCM Loader] Load error",e);
+	return ;
 	const ATTEMPTS_KEY = "cc.microblock.loader.reloadPluginAttempts";
 
 	const attempts = parseInt(await BetterNCM.app.readConfig(ATTEMPTS_KEY, "0"));
