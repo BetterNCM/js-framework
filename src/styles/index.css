@@ -10,8 +10,8 @@ section.better-ncm-manager {
     display: none !important;
     background: transparent !important;
     z-index: 70;
-    left: 200px;
-    top: 60px;
+    left: 20px;
+    top: 0px;
     bottom: 73px;
     right: 0;
     overflow: hidden overlay;
@@ -162,6 +162,7 @@ body.mq-playing section.better-ncm-manager.ncmm-show {
 
 .bncm-mgr-btns {
     display: flex;
+    gap: 6px;
 }
 
 .bncm-mgr-btns>* {
@@ -186,4 +187,10 @@ body.mq-playing section.better-ncm-manager.ncmm-show {
 
 .bncm-btn-twinkling{
     animation: twinkling 1s infinite;
+}
+
+.m-tool {
+    display: flex;
+    gap: 30px;
+    align-items: center;
 }
