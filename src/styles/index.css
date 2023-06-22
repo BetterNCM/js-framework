@@ -1,6 +1,14 @@
 @import url(./startup-warning.css);
 @import url(./spinner.css);
 
+[class^=IconBar_] {
+    width: 180px;
+}
+
+[class^=MiniModeIconBar_] {
+    width: 160px;
+}
+
 .bncm-mgr,
 .bncm-mgr * {
     box-sizing: border-box;
@@ -191,6 +199,6 @@ body.mq-playing section.better-ncm-manager.ncmm-show {
 
 .m-tool {
     display: flex;
-    gap: 30px;
+    gap: 10px;
     align-items: center;
 }

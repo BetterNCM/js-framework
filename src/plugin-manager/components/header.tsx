@@ -193,7 +193,7 @@ export const HeaderComponent: React.FC<{
 								<ProgressRing />
 								检查更新中
 							</>
-						) : latestVersion.version === currentVersion ? (
+						) : latestVersion.version.startsWith(currentVersion) ? (
 							<>已是最新版本</>
 						) : latestVersion.version.length === 0 ? (
 							<>版本不兼容</>

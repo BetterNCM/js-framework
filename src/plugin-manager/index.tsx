@@ -41,6 +41,7 @@ export async function initPluginManager() {
 	settingsView.classList.add("g-mn");
 
 	function showSettings() {
+		// debugger
 		// 有插件似乎会替换主页元素，导致我们的设置页面无法显示，需要进行检查
 		if (settingsView.parentElement !== mainPageView.parentElement) {
 			mainPageView.parentElement!!.insertBefore(
@@ -58,6 +59,19 @@ export async function initPluginManager() {
 		settingsView.classList.remove("ncmm-show");
 		mainPageView.removeAttribute("style");
 	}
+
+	window.addEventListener('click', (e) => {
+		const clickHideAreas = [
+			'[class^=LeftScrollContainer_]',
+			'[class^=MiniModeIconBar_]',
+			'[class^=CommentWrapper_]'
+		];
+
+		for (const ele of e.path) {
+			if (ele.title === 'BetterNCM') return;
+			if (clickHideAreas.some(s => ele.matches?.(s))) hideSettings();
+		}
+	})
 
 	!(async () => {
 		const lyricButton = (await BetterNCM.utils.waitForElement(
