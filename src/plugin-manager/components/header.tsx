@@ -38,9 +38,17 @@ export const HeaderComponent: React.FC<{
 				setCurrentVersion(betterNCMVersion);
 				const currentNCMVersion = BetterNCM.ncm.getNCMVersion();
 
+				let source = "https://gitee.com/microblock/better-ncm-v2-data/raw/master/";
+
+				try {
+					source = (await (await fetch("https://microblock.cc/bncm-config.txt")).text()).split("\n")[1].trim();
+				} catch (e) {
+					console.log("Failed to dynamically get config online");
+				}
+
 				const online: OnlineVersionInfo = await (
 					await fetch(
-						"https://gitee.com/microblock/better-ncm-v2-data/raw/master/betterncm/betterncm.json",
+						source + "betterncm/betterncm.json",
 					)
 				).json();
 				const onlineSuitableVersions = online.versions.filter((v) =>
@@ -193,7 +201,7 @@ export const HeaderComponent: React.FC<{
 								<ProgressRing />
 								检查更新中
 							</>
-						) : latestVersion.version.startsWith(currentVersion) ? (
+						) : latestVersion.version === currentVersion ? (
 							<>已是最新版本</>
 						) : latestVersion.version.length === 0 ? (
 							<>版本不兼容</>
