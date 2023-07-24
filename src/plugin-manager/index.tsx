@@ -11,10 +11,10 @@ export async function initPluginManager() {
 	// 准备设置页面和访问按钮
 	const settingsView = document.createElement("section");
 	const mainPageView: HTMLElement = (await BetterNCM.utils.waitForElement(
-		".right-container",
+		".right-container, section.g-mn",
 	))!!;
 	const settingsButton = (await BetterNCM.utils.waitForElement(
-		'.cmd-icon-setting',
+		'.cmd-icon-setting, a[href="#/m/setting/"]',
 	))!! as HTMLAnchorElement;
 	const betterNCMSettingsButton = settingsButton.cloneNode(
 		true,

@@ -4,7 +4,7 @@ export const Button: React.FC<
 	const { children, className, ...other } = props;
 	const wrapperClass = [...((document.querySelector('.cmd-button'))!.classList as unknown as string[])].find(v => v.startsWith('ButtonWrapper_'))
 	return (
-		<a className={`${wrapperClass} cmd-button cmd-button-outlineSec cmd-button-size-m cmd-button-outline-sec button-item
+		<a className={`${wrapperClass} u-ibtn5 u-ibtnsz8 cmd-button cmd-button-outlineSec cmd-button-size-m cmd-button-outline-sec button-item
 		 ${className || ""}`} {...other}>
 			{children}
 		</a>
