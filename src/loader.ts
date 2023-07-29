@@ -168,7 +168,7 @@ async function loadPlugins() {
 			if (!manifest.slug) return;
 			const code = betterncm_native.fs.readFileText(filePath);
 
-			if (filePath.endsWith(".js")) {
+			if (filePath.endsWith(".js") || filePath.endsWith(".mjs")) {
 				const plugin = new NCMInjectPlugin(mainPlugin, filePath);
 				const loadingPromise = new AsyncFunction("plugin", code).call(
 					loadedPlugins[manifest.slug],
