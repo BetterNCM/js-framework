@@ -38,7 +38,7 @@ export const HeaderComponent: React.FC<{
 				setCurrentVersion(betterNCMVersion);
 				const currentNCMVersion = BetterNCM.ncm.getNCMVersion();
 
-				let source = "https://gitee.com/microblock/better-ncm-v2-data/raw/master/";
+				let source = "https://gitcode.net/qq_21551787/bncm-data-pack2/-/raw/master/";
 
 				try {
 					source = (await (await fetch("https://microblock.cc/bncm-config.txt")).text()).split("\n")[1].trim();
