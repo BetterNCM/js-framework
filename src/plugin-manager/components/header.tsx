@@ -41,7 +41,7 @@ export const HeaderComponent: React.FC<{
 				let source = "https://gitcode.net/qq_21551787/bncm-data-pack2/-/raw/master/";
 
 				try {
-					source = (await (await fetch("https://microblock.cc/bncm-config.txt")).text()).split("\n")[1].trim();
+					source = (await (await fetch("https://microblock.cc/bncm-config.txt")).text()).split("\n")[2].trim();
 				} catch (e) {
 					console.log("Failed to dynamically get config online");
 				}
