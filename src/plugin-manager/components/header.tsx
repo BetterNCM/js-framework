@@ -1,3 +1,4 @@
+import { satisfies } from "semver";
 import BetterNCM from "../../betterncm-api";
 import { disableSafeMode, isSafeMode, loadedPlugins } from "../../loader";
 import { Button } from "./button";
@@ -48,13 +49,21 @@ export const HeaderComponent: React.FC<{
 
 				const online: OnlineVersionInfo = await (
 					await fetch(
-						source + "betterncm/betterncm.json",
+						source + "betterncm/betterncm3.json",
 					)
 				).json();
-				const onlineSuitableVersions = online.versions.filter((v) =>
-					v.supports.includes(currentNCMVersion),
-				);
-				if (onlineSuitableVersions.length === 0) {
+
+				let suitableVersion;
+
+				for (const req in online.versions) {
+					if (satisfies(betterNCMVersion, req)) {
+						suitableVersion = online.versions[req];
+						break;
+					}
+				}
+
+				const isX86 = navigator.userAgent.includes('WOW64');
+				if (suitableVersion === undefined) {
 					setUpdateButtonColor("#F004");
 					setLatestVersion({
 						version: "",
@@ -63,11 +72,15 @@ export const HeaderComponent: React.FC<{
 						changelog: "",
 					});
 				} else {
-					const latestVersion = onlineSuitableVersions[0];
-					if (latestVersion.version !== betterNCMVersion) {
+					if (suitableVersion.version !== betterNCMVersion) {
 						setUpdateButtonColor("#0F04");
 					}
-					setLatestVersion(latestVersion);
+					setLatestVersion({
+						version: suitableVersion.version,
+						supports: [currentNCMVersion],
+						file: isX86 ? suitableVersion.url_x86 : suitableVersion.url_x64, 
+						changelog: '',
+					});
 				}
 			}
 		})();
@@ -90,7 +103,7 @@ export const HeaderComponent: React.FC<{
 				BetterNCM.app.exec(
 					[
 						"cmd /c @echo off",
-						"echo BetterNCM Updating...",
+						"title BetterNCM Updating...",
 						"cd /d C:/",
 						"cd C:/",
 						`cd /d ${ncmpath[0]}:/`,
@@ -99,6 +112,7 @@ export const HeaderComponent: React.FC<{
 						"taskkill /f /im cloudmusicn.exe>nul",
 						"ping 127.0.0.1>nul & del msimg32.dll",
 						`move "${dllpath}" .\\msimg32.dll`,
+						"ping 127.0.0.1>nul",
 						"start cloudmusic.exe",
 					].join(" & "),
 					true,
