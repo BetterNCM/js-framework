@@ -125,7 +125,7 @@ body.mq-playing section.better-ncm-manager.ncmm-show {
 .plugin-list-name{
     float: left;
     width: 85%;
-    overflow: hidden;
+    overflow-x: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
@@ -206,4 +206,8 @@ header:not(.g-hd) .m-tool {
 #x-g-mn section.better-ncm-manager.g-mn.ncmm-show {
     left: 220px !important;
     top: 40px !important;
+}
+
+.bncm-mgr {
+    font-family: Tahona, Microsoft Yahei;
 }
