@@ -131,9 +131,11 @@ body.mq-playing section.better-ncm-manager.ncmm-show {
 }
 
 .plugin-btn {
-    border-radius: 8px;
+    border-radius: 100px;
     padding: 8px;
     margin-bottom: 8px;
+    display: flex;
+    align-items: center;
 }
 
 .plugin-btn::after {
