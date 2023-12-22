@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:dev": "esbuild ./src/index.ts --bundle --sourcemap=inline --external:./node_modules/* --target=chrome91 --outfile=../framework.js",
-    "build": "esbuild ./src/index.ts --minify --bundle --sourcemap --external:./node_modules/* --target=chrome91 --outfile=../framework.js",
+    "build:dev": "esbuild ./src/index.ts --bundle --sourcemap=inline --target=chrome91 --outfile=../framework.js",
+    "build": "esbuild ./src/index.ts --minify --bundle --sourcemap --target=chrome91 --outfile=../framework.js",
     "gentypes": "tsc --outfile index.d.ts --module none && rome format --write ./index.d.ts",
     "fmt": "rome format --write ./src ./index.d.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,10 +19,10 @@
     "esbuild": "^0.16.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "@types/semver": "^7.5.6"
   },
   "dependencies": {
-    "@types/semver": "^7.5.6",
     "rome": "^11.0.0",
     "semver": "^7.5.4"
   }

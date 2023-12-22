@@ -126,6 +126,7 @@ body.mq-playing section.better-ncm-manager.ncmm-show {
     float: left;
     width: 85%;
     overflow-x: hidden;
+    overflow-y: visible;
     white-space: nowrap;
     text-overflow: ellipsis;
 }

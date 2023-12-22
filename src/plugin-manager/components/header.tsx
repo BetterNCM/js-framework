@@ -56,7 +56,7 @@ export const HeaderComponent: React.FC<{
 				let suitableVersion;
 
 				for (const req in online.versions) {
-					if (satisfies(betterNCMVersion, req)) {
+					if (satisfies(currentNCMVersion, req)) {
 						suitableVersion = online.versions[req];
 						break;
 					}
