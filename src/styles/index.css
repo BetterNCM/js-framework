@@ -2,11 +2,16 @@
 @import url(./spinner.css);
 
 [class^=IconBar_] {
-    width: 180px;
+    width: 200px;
 }
 
 [class^=MiniModeIconBar_] {
     width: 160px;
+    gap: 5px !important;
+}
+
+[class^=WindowOpBarContainer_] {
+    gap: 5px !important;
 }
 
 .bncm-mgr,
