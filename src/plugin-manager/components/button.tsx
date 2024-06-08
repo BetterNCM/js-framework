@@ -1,10 +1,10 @@
-import { useMemo } from "react";
+
 
 export const Button: React.FC<
 	React.PropsWithChildren<React.HTMLAttributes<HTMLAnchorElement>>
 > = (props) => {
 	const { children, className, ...other } = props;
-	const wrapperClass = useMemo(() => {
+	const wrapperClass = React.useMemo(() => {
 		const is300 = APP_CONF.appver.startsWith('3.')
 		return is300 && [...((document.querySelector('.cmd-button'))!.classList as unknown as string[])].find(v => v.startsWith('ButtonWrapper_'))
 	}, [])
