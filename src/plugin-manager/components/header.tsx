@@ -39,17 +39,9 @@ export const HeaderComponent: React.FC<{
 				setCurrentVersion(betterNCMVersion);
 				const currentNCMVersion = BetterNCM.ncm.getNCMVersion();
 
-				let source = "https://gitcode.net/qq_21551787/bncm-data-pack2/-/raw/master/";
-
-				try {
-					source = (await (await fetch("https://microblock.cc/bncm-config.txt")).text()).split("\n")[2].trim();
-				} catch (e) {
-					console.log("Failed to dynamically get config online");
-				}
-
 				const online: OnlineVersionInfo = await (
 					await fetch(
-						source + "betterncm/betterncm3.json",
+						'https://ganbei-hot-update-1258625969.file.myqcloud.com/betterncm-data/binary/data.json',
 					)
 				).json();
 
@@ -129,7 +121,7 @@ export const HeaderComponent: React.FC<{
 	return (
 		<section className="bncm-mgr-header">
 			<img
-				src="https://s1.ax1x.com/2022/08/11/vGlJN8.png"
+				src="https://ganbei-hot-update-1258625969.file.myqcloud.com/betterncm-data/bncm.png"
 				alt=""
 				style={{
 					height: "64px",
@@ -246,7 +238,7 @@ export const HeaderComponent: React.FC<{
 					className="itm"
 					// rome-ignore lint/a11y/useValidAnchor: <explanation>
 					onClick={() =>
-						BetterNCM.ncm.openUrl("https://github.com/MicroCBer/BetterNCM")
+						BetterNCM.ncm.openUrl("https://github.com/std-microblock/BetterNCM")
 					}
 					style={{
 						width: "32px",

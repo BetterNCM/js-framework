@@ -29,14 +29,14 @@ export const StartupWarning: React.FC<{
 					className="itm"
 					// rome-ignore lint/a11y/useValidAnchor: <explanation>
 					onClick={() =>
-						BetterNCM.ncm.openUrl("https://github.com/MicroCBer/BetterNCM")
+						BetterNCM.ncm.openUrl("https://github.com/std-microblock/BetterNCM")
 					}
 					style={{
 						width: "32px",
 						height: "32px",
 					}}
 				>
-					https://github.com/MicroCBer/BetterNCM
+					https://github.com/std-microblock/BetterNCM
 				</a>
 			</p>
 			<p>
